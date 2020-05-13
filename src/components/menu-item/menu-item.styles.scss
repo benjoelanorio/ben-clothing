@@ -14,11 +14,31 @@
 
     & .background-image {
       transform: scale(1.1);
+      // transition: transform 7s cubic-bezier(0.2, 1, 0.3, 1);
       transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     }
 
     & .content {
       opacity: 0.9;
+      // added from here
+      overflow: hidden;
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        background: rgb(230, 231, 231);
+        opacity: 0.9;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: scale(2) translateX(75%) translateY(-75%) rotate(-28deg);
+        transition: transform 3s cubic-bezier(0.2, 1, 0.3, 1);
+      }
+      // Bring in main color overlay
+      &:hover:after {
+        transform: scale(2) translateX(0) translateY(0) rotate(-28deg);
+      }
     }
   }
 
@@ -58,11 +78,13 @@
       margin-bottom: 6px;
       font-size: 22px;
       color: #4a4a4a;
+      z-index: 1;
     }
 
     .subtitle {
       font-weight: lighter;
       font-size: 16px;
+      z-index: 1;
     }
   }
 }
