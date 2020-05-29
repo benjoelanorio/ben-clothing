@@ -20,16 +20,31 @@ class ShopPage extends React.Component {
   };
 
   unsubscrbeFromSnapshot = null;
+  // OBSERVER PATTERN
+  // componentDidMount() {
+  //   const { updateCollections } = this.props;
+  //   const collectionRef = firestore.collection('collections');
+
+  //   this.unsubscrbeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
+  //     const collectionsMap = convertCollectionSnapshotToMap(snapshot);
+  //     updateCollections(collectionsMap);
+  //     this.setState({ loading: false });
+  //   })
+  // }
 
   componentDidMount() {
     const { updateCollections } = this.props;
     const collectionRef = firestore.collection('collections');
 
-    this.unsubscrbeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
+    // fetch('https://firestore.googleapis.com/v1/projects/ben-clothing-db/databases/(default)/documents/collections')
+    //   .then(response => response.json())
+    //   .then(collections => console.log(collections))
+
+    collectionRef.get().then(snapshot => {
       const collectionsMap = convertCollectionSnapshotToMap(snapshot);
       updateCollections(collectionsMap);
       this.setState({ loading: false });
-    })
+    });
   }
 
   render() {
